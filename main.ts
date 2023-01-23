@@ -1,8 +1,13 @@
 namespace SpriteKind {
     export const Hoop = SpriteKind.create()
 }
-sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Hoop, function (sprite, otherSprite) {
-	
+controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
+    animation.runImageAnimation(
+    Harry,
+    assets.animation`HarryToss`,
+    50,
+    false
+    )
 })
 info.onCountdownEnd(function () {
     sprites.destroyAllSpritesOfKind(SpriteKind.Projectile)
@@ -11,13 +16,22 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Projectile, function (sprite, ot
     otherSprite.destroy()
     info.changeScoreBy(1)
 })
+controller.A.onEvent(ControllerButtonEvent.Released, function () {
+    animation.runImageAnimation(
+    Harry,
+    assets.animation`HarrywBall`,
+    100,
+    true
+    )
+})
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
     otherSprite.destroy()
     info.changeLifeBy(-1)
 })
 let Cone: Sprite = null
+let Harry: Sprite = null
 scene.setBackgroundImage(assets.image`BB Court w Audience`)
-let Harry = sprites.create(assets.image`Harry the Hawk`, SpriteKind.Player)
+Harry = sprites.create(assets.image`Harry the Hawk`, SpriteKind.Player)
 controller.moveSprite(Harry, 100, 100)
 Harry.setStayInScreen(true)
 info.setLife(5)
@@ -26,7 +40,7 @@ info.startCountdown(10)
 animation.runImageAnimation(
 Harry,
 assets.animation`HarrywBall`,
-200,
+100,
 true
 )
 forever(function () {
