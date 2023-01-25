@@ -4,13 +4,19 @@ namespace SpriteKind {
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     animation.runImageAnimation(
     Harry,
-    assets.animation`HarryToss`,
+    assets.animation`HarryTossFinal`,
     50,
     false
     )
 })
 info.onCountdownEnd(function () {
-    sprites.destroyAllSpritesOfKind(SpriteKind.Projectile)
+    sprites.destroyAllSpritesOfKind(SpriteKind.Enemy)
+    animation.runImageAnimation(
+    Harry,
+    assets.animation`Running to Net Animation FINAL`,
+    50,
+    false
+    )
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Projectile, function (sprite, otherSprite) {
     otherSprite.destroy()
@@ -19,7 +25,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Projectile, function (sprite, ot
 controller.A.onEvent(ControllerButtonEvent.Released, function () {
     animation.runImageAnimation(
     Harry,
-    assets.animation`HarrywBall`,
+    assets.animation`HarryDribblingFinal`,
     100,
     true
     )
@@ -39,13 +45,18 @@ scroller.scrollBackgroundWithSpeed(-90, 0)
 info.startCountdown(10)
 animation.runImageAnimation(
 Harry,
-assets.animation`HarrywBall`,
+assets.animation`HarryDribblingFinal`,
 100,
 true
 )
 forever(function () {
-    Cone = sprites.createProjectileFromSide(assets.image`Pylon`, -90, 0)
-    Cone.y = randint(20, 115)
-    Cone.setKind(SpriteKind.Enemy)
-    pause(500)
+    if (info.countdown() == 0) {
+        sprites.destroyAllSpritesOfKind(SpriteKind.Enemy)
+        scroller.scrollBackgroundWithSpeed(0, 0)
+    } else {
+        Cone = sprites.createProjectileFromSide(assets.image`Pylon`, -90, 0)
+        Cone.y = randint(25, 115)
+        Cone.setKind(SpriteKind.Enemy)
+        pause(500)
+    }
 })
