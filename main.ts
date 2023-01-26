@@ -9,6 +9,13 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     100,
     false
     )
+    pause(2000)
+    animation.runImageAnimation(
+    Harry,
+    assets.animation`HarryDribblingFinal`,
+    100,
+    true
+    )
 })
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     animation.runImageAnimation(
@@ -17,9 +24,17 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     50,
     false
     )
+    pause(2000)
+    animation.runImageAnimation(
+    Harry,
+    assets.animation`HarryDribblingFinal`,
+    100,
+    true
+    )
 })
 info.onCountdownEnd(function () {
-    sprites.destroyAllSpritesOfKind(SpriteKind.Enemy)
+    sprites.destroyAllSpritesOfKind(SpriteKind.Projectile)
+    scroller.scrollBackgroundWithSpeed(0, 0)
     animation.runImageAnimation(
     Harry,
     assets.animation`DunkAnimationFinal`,
@@ -29,37 +44,17 @@ info.onCountdownEnd(function () {
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Projectile, function (sprite, otherSprite) {
     otherSprite.destroy()
-    info.changeScoreBy(1)
-})
-controller.A.onEvent(ControllerButtonEvent.Released, function () {
-    animation.runImageAnimation(
-    Harry,
-    assets.animation`HarryDribblingFinal`,
-    100,
-    true
-    )
-})
-controller.B.onEvent(ControllerButtonEvent.Released, function () {
-    animation.runImageAnimation(
-    Harry,
-    assets.animation`HarryDribblingFinal`,
-    100,
-    true
-    )
-})
-sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
-    otherSprite.destroy()
     info.changeLifeBy(-1)
 })
 let Cone: Sprite = null
 let Harry: Sprite = null
-scene.setBackgroundImage(assets.image`BB Court w Audience`)
 Harry = sprites.create(assets.image`HarrytheHawk`, SpriteKind.Player)
 controller.moveSprite(Harry, 100, 100)
+scene.setBackgroundImage(assets.image`BB Court w Audience`)
 Harry.setStayInScreen(true)
 info.setLife(5)
 scroller.scrollBackgroundWithSpeed(-90, 0)
-info.startCountdown(10)
+info.startCountdown(30)
 animation.runImageAnimation(
 Harry,
 assets.animation`HarryDribblingFinal`,
@@ -67,13 +62,9 @@ assets.animation`HarryDribblingFinal`,
 true
 )
 forever(function () {
-    if (info.countdown() == 0) {
-        sprites.destroyAllSpritesOfKind(SpriteKind.Enemy)
-        scroller.scrollBackgroundWithSpeed(0, 0)
-    } else {
+    while (info.countdown() > 0) {
         Cone = sprites.createProjectileFromSide(assets.image`Pylon`, -90, 0)
         Cone.y = randint(25, 115)
-        Cone.setKind(SpriteKind.Enemy)
         pause(500)
     }
 })
