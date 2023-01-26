@@ -1,6 +1,15 @@
 namespace SpriteKind {
     export const Hoop = SpriteKind.create()
+    export const Animation = SpriteKind.create()
 }
+controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
+    animation.runImageAnimation(
+    Harry,
+    assets.animation`HarryAroundBackFinal`,
+    100,
+    false
+    )
+})
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     animation.runImageAnimation(
     Harry,
@@ -13,7 +22,7 @@ info.onCountdownEnd(function () {
     sprites.destroyAllSpritesOfKind(SpriteKind.Enemy)
     animation.runImageAnimation(
     Harry,
-    assets.animation`Running to Net Animation FINAL`,
+    assets.animation`DunkAnimationFinal`,
     50,
     false
     )
@@ -30,6 +39,14 @@ controller.A.onEvent(ControllerButtonEvent.Released, function () {
     true
     )
 })
+controller.B.onEvent(ControllerButtonEvent.Released, function () {
+    animation.runImageAnimation(
+    Harry,
+    assets.animation`HarryDribblingFinal`,
+    100,
+    true
+    )
+})
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
     otherSprite.destroy()
     info.changeLifeBy(-1)
@@ -37,7 +54,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSp
 let Cone: Sprite = null
 let Harry: Sprite = null
 scene.setBackgroundImage(assets.image`BB Court w Audience`)
-Harry = sprites.create(assets.image`Harry the Hawk`, SpriteKind.Player)
+Harry = sprites.create(assets.image`HarrytheHawk`, SpriteKind.Player)
 controller.moveSprite(Harry, 100, 100)
 Harry.setStayInScreen(true)
 info.setLife(5)
