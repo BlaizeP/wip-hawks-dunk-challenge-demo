@@ -5,30 +5,30 @@ namespace SpriteKind {
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     animation.runImageAnimation(
     Harry,
-    assets.animation`HarryAroundBackFinal`,
-    100,
+    assets.animation`HarrySomersaultFinal`,
+    75,
     false
     )
-    pause(2000)
+    pause(1500)
     animation.runImageAnimation(
     Harry,
     assets.animation`HarryDribblingFinal`,
-    100,
+    75,
     true
     )
 })
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     animation.runImageAnimation(
     Harry,
-    assets.animation`HarryTossFinal`,
-    50,
+    assets.animation`HarryAroundBackFinal`,
+    75,
     false
     )
-    pause(2000)
+    pause(850)
     animation.runImageAnimation(
     Harry,
     assets.animation`HarryDribblingFinal`,
-    100,
+    75,
     true
     )
 })
@@ -38,7 +38,7 @@ info.onCountdownEnd(function () {
     animation.runImageAnimation(
     Harry,
     assets.animation`DunkAnimationFinal`,
-    50,
+    75,
     false
     )
 })
@@ -49,16 +49,16 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Projectile, function (sprite, ot
 let Cone: Sprite = null
 let Harry: Sprite = null
 Harry = sprites.create(assets.image`HarrytheHawk`, SpriteKind.Player)
-controller.moveSprite(Harry, 100, 100)
+controller.moveSprite(Harry, 0, 100)
 scene.setBackgroundImage(assets.image`BB Court w Audience`)
 Harry.setStayInScreen(true)
-info.setLife(5)
+info.setLife(3)
 scroller.scrollBackgroundWithSpeed(-90, 0)
-info.startCountdown(30)
+info.startCountdown(20)
 animation.runImageAnimation(
 Harry,
 assets.animation`HarryDribblingFinal`,
-100,
+75,
 true
 )
 forever(function () {
