@@ -37,7 +37,7 @@ info.onCountdownEnd(function () {
     scroller.scrollBackgroundWithSpeed(0, 0)
     animation.runImageAnimation(
     Harry,
-    assets.animation`DunkAnimationFinal`,
+    assets.animation`ShortDunkAnimationFinal`,
     75,
     false
     )
@@ -54,7 +54,7 @@ scene.setBackgroundImage(assets.image`BB Court w Audience`)
 Harry.setStayInScreen(true)
 info.setLife(3)
 scroller.scrollBackgroundWithSpeed(-90, 0)
-info.startCountdown(20)
+info.startCountdown(3)
 animation.runImageAnimation(
 Harry,
 assets.animation`HarryDribblingFinal`,
